@@ -46,8 +46,23 @@ view: inventory_items {
     sql: ${TABLE}.sold_at ;;
   }
 
+
+
   measure: count {
     type: count
     drill_fields: [id, products.item_name, products.id, order_items.count]
+  }
+}
+
+view: limit_test{
+  derived_table: {
+    sql:select * from orders
+    limit {% parameter limit %}
+    ;;
+  }
+  dimension: id {}
+  parameter: limit {
+    default_value: "100"
+    type: number
   }
 }

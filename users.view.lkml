@@ -39,7 +39,11 @@ view: users {
 
   dimension: email {
     type: string
-    sql: ${TABLE}.email ;;
+    sql: case '{{ _user_attributes["sensitive_access"]}}' WHEN  'y'
+            then ${TABLE}.email
+          else md5(${TABLE}.email)
+         end
+          ;;
   }
 
   dimension: first_name {

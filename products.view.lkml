@@ -22,7 +22,7 @@ view: products {
     sql: ${TABLE}.department ;;
   }
 
-  dimension: item_name {
+  filter: item_name {
     type: string
     sql: ${TABLE}.item_name ;;
   }
@@ -40,6 +40,12 @@ view: products {
   dimension: sku {
     type: string
     sql: ${TABLE}.sku ;;
+  }
+
+  filter: product_name {
+    sql: ${id} = (select id from products as p where {% condition product_name %} item_name {% endcondition %});;
+    suggest_explore: products
+    suggest_dimension: products.item_name
   }
 
   measure: count {

@@ -18,8 +18,19 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.order_id ;;
   }
-
-  dimension_group: returned {
+  dimension: returned_sort {
+    type: date_time
+    sql: case when ${TABLE}.returned_at is null
+            then '1970-01-01 00:00:00'
+            else returned_at end ;;
+    hidden: yes
+  }
+  dimension: returned {
+    type: date_time
+    order_by_field: returned_sort
+    sql: ${TABLE}.returned_at ;;
+  }
+  dimension_group: returned_1 {
     type: time
     timeframes: [
       raw,
@@ -30,12 +41,14 @@ view: order_items {
       quarter,
       year
     ]
-    sql: ${TABLE}.returned_at ;;
+    sql: ${order_items.returned} ;;
+
   }
 
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+
   }
 
   measure: count {

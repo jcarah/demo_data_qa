@@ -7,3 +7,4 @@ include: "base_model.model.lkml"
 explore: order_items_open {
   extends: [order_items]
 }
+# small change

@@ -37,14 +37,6 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: email {
-    type: string
-    sql: case '{{ _user_attributes["sensitive_access"]}}' WHEN  'y'
-            then ${TABLE}.email
-          else md5(${TABLE}.email)
-         end
-          ;;
-  }
 
   dimension: first_name {
     type: string

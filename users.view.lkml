@@ -53,6 +53,26 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: name {
+    type: string
+    sql: concat(${first_name}, ' ', ${last_name}) ;;
+    action: {
+      label: "Annotate this!"
+      url: "https://us-central1-capable-reserve-159715.cloudfunctions.net/function-3/"
+
+      param: {
+        name: "name"
+        value: "{{ value }}"
+      }
+      form_param: {
+        name: "annotation"
+        type: string
+        label: "Annotation"
+        description: "Leave an annotation for this user"
+      }
+    }
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;

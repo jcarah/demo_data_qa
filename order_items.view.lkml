@@ -38,8 +38,22 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: revenue {
+    type: sum
+    sql:${TABLE}.sale_price  ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
   }
+
+  measure: average_order_value {
+    sql: ${revenue}/${count} ;;
+  }
+
+  filter: date_filter {
+    type: date
+  }
+
 }

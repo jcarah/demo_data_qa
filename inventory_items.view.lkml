@@ -10,6 +10,7 @@ view: inventory_items {
   dimension: cost {
     type: number
     sql: ${TABLE}.cost ;;
+    description: "the cost of the item"
   }
 
   dimension_group: created {

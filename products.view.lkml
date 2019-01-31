@@ -22,7 +22,7 @@ view: products {
     sql: ${TABLE}.department ;;
   }
 
-  filter: item_name {
+  dimension: item_name {
     type: string
     sql: ${TABLE}.item_name ;;
   }

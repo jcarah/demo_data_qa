@@ -3,9 +3,10 @@ view: events {
 
   dimension: id {
     primary_key: yes
-    description: "This is an id field"
+    description: "This is the id field"
     type: number
     sql: ${TABLE}.id ;;
+
   }
 
   dimension_group: created {

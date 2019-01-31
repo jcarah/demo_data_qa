@@ -3,7 +3,7 @@ view: events {
 
   dimension: id {
     primary_key: yes
-    description: "This is the id field"
+    description: "This is a id field"
     type: number
     sql: ${TABLE}.id ;;
 

@@ -1,4 +1,4 @@
-include: "*core_views.view.lkml"
+include: "*.view.lkml"
 
 explore: order_items_core {
   join: orders_core {

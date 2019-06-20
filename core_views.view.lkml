@@ -193,6 +193,7 @@ view: users_core {
 }
 
 view: orders_core {
+  extension: required
   sql_table_name: orders ;;
   dimension: id {
     primary_key: yes

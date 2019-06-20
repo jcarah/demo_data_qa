@@ -1,5 +1,68 @@
-explore: users {}
-view: users {
+
+view: order_items_core {
+  extension: required
+  sql_table_name: demo_db.order_items ;;
+
+  dimension: id {
+    primary_key: yes
+    type: number
+    sql: ${TABLE}.id ;;
+  }
+
+  dimension: inventory_item_id {
+    type: number
+    # hidden: yes
+    sql: ${TABLE}.inventory_item_id ;;
+  }
+
+  dimension: order_id {
+    type: number
+    # hidden: yes
+    sql: ${TABLE}.order_id ;;
+  }
+
+  dimension_group: returned {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.returned_at ;;
+  }
+
+  dimension: sale_price {
+    type: number
+    sql: ${TABLE}.sale_price ;;
+  }
+
+  measure: revenue {
+    type: sum
+    sql:${TABLE}.sale_price  ;;
+  }
+
+  measure: count {
+    type: count
+    drill_fields: [id, inventory_items.id, orders.id]
+  }
+
+  measure: average_order_value {
+    sql: ${revenue}/${count} ;;
+  }
+
+  filter: date_filter {
+    type: date
+  }
+
+}
+
+
+view: users_core {
+  extension: required
   sql_table_name: demo_db.users ;;
 
   dimension: id {
@@ -103,19 +166,19 @@ view: users {
     drill_fields: [detail*]
   }
 
- measure: male_count {
-  type: count
-  filters: {
-    field: gender
-    value: "m"
+  measure: male_count {
+    type: count
+    filters: {
+      field: gender
+      value: "m"
+    }
+    drill_fields: [detail*]
   }
-  drill_fields: [detail*]
-}
-measure: total_count {
-  type: number
-  sql: ${female_count} - ${male_count} ;;
-  drill_fields: [detail*]
-}
+  measure: total_count {
+    type: number
+    sql: ${female_count} - ${male_count} ;;
+    drill_fields: [detail*]
+  }
 # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
@@ -126,5 +189,44 @@ measure: total_count {
       orders.count,
       user_data.count
     ]
+  }
+}
+
+view: orders_core {
+  sql_table_name: orders ;;
+  dimension: id {
+    primary_key: yes
+    type: number
+    sql: ${TABLE}.id ;;
+  }
+
+  dimension_group: created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: status {
+    type: string
+    sql: ${TABLE}.status ;;
+  }
+
+  dimension: user_id {
+    type: number
+    # hidden: yes
+    sql: ${TABLE}.user_id ;;
+  }
+
+  measure: count {
+    type: count
+    drill_fields: [id, users.last_name, users.first_name, users.id, order_items.count]
   }
 }

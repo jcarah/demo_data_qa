@@ -1,6 +1,7 @@
 include: "*.view.lkml"
 
 explore: order_items_core {
+  from: order_items_core
   extension: required
   join: orders_core {
     sql_on: ${order_items_core.order_id} = ${orders_core.id} ;;

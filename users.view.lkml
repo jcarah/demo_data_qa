@@ -1,4 +1,4 @@
-explore: users {}
+# explore: users {}
 view: users {
   sql_table_name: demo_db.users ;;
 
@@ -11,6 +11,13 @@ view: users {
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+  }
+
+  dimension: age_tier {
+    sql: ${age} ;;
+    type: tier
+    tiers: [10, 20, 30, 40, 50,60, 70, 80]
+    style: integer
   }
 
   dimension: city {
@@ -126,5 +133,13 @@ measure: total_count {
       orders.count,
       user_data.count
     ]
+  }
+}
+
+view: users_extended {
+  extends: [users]
+  measure: male_count {
+    drill_fields: [detail*]
+    hidden: yes
   }
 }

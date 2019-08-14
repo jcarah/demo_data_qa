@@ -41,3 +41,13 @@ explore: order_items {
     relationship: one_to_one
   }
 }
+
+explore: users {
+  hidden: yes
+}
+
+explore: users_clean {
+  extends: [users]
+  view_name: users
+  fields: [users.country, users.age]
+}

@@ -1,4 +1,4 @@
-
+# foo
 view: order_items_core {
   extension: required
   sql_table_name: demo_db.order_items ;;

@@ -11,6 +11,7 @@ explore: order_items {
 
 #   fields: ["order_items.count"]
 
+
   from: order_items
   join: inventory_items {
     type: left_outer

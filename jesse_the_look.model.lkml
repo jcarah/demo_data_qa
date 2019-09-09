@@ -8,6 +8,7 @@ include: "*.view"
 
 
 explore: order_items {
+
 #   fields: ["order_items.count"]
 
   from: order_items

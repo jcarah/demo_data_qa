@@ -26,6 +26,7 @@ sql_table_name: orders ;;
   }
 
   dimension: user_id {
+    label: "{{ 'Shopify' | link_to: 'https://www.shopify.com','A link to Shopify' }} "
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;

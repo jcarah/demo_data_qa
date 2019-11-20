@@ -48,7 +48,7 @@ explore: order_items {
 }
 
 explore: users {
-  hidden: yes
+  hidden: no
 }
 
 explore: users_clean {

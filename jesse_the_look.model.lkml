@@ -18,6 +18,13 @@ explore: order_items {
 
 
   from: order_items
+  sql_always_where:
+  {% if {{_user_attributes['state'] == 'New York' }} %}
+      1=1
+  {% else %}
+    ${orders.status} != 'complete'
+  {% endif %}
+      ;;
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;

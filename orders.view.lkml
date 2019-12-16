@@ -36,4 +36,11 @@ sql_table_name: orders ;;
     type: count
     drill_fields: [id, users.last_name, users.first_name, users.id, order_items.count]
   }
+
+  measure: statuses {
+#     type: list
+#     list_field: status
+    sql: group_concat(distinct ${status}) ;;
+#     html: {% if {{_user_attributes['state'] == 'New York' }} and status._value == "complete" %}  {{ value }} {% else %} redacted {% endif %};;
+  }
 }

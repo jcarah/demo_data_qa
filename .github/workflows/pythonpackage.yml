@@ -24,6 +24,5 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run test
-      uses: ./.github/actions/python_test
       run: |
         python run_tests.py ${{ github.head_ref }}

@@ -1,8 +1,7 @@
 from looker_sdk import client, models
 import sys
 
-config_file = 'looker.ini'
-sdk = client.setup(config_file)
+sdk = client.setup()
 
 def main():
     print(sys.argv[1])

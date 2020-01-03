@@ -13,6 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Set environment variables
+      run: echo Setting environment variables.
       env:
         LOOKERSDK_API_VERSION: ${{ LOOKERSDK_API_VERSION }}
         LOOKERSDK_BASE_URL: ${{ LOOKERSDK_BASE_URL }}

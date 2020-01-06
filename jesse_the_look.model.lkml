@@ -18,6 +18,7 @@ explore: order_items {
 # foo
 
 
+
   from: order_items
   sql_always_where:
   {% if {{_user_attributes['state'] == 'New York' }} %}

@@ -4,16 +4,16 @@ import sys
 sdk = client.setup()
 
 def main():
-    print(sys.argv[1])
+    broken_content_prod = sdk.content_validation().content_with_errors
     name = parse_dev_branch_name(sys.argv[1])
-
     user_id = get_user_id(name[0],name[1])
     print(user_id)
     sdk.login_user(user_id)
     checkout_dev_branch()
-    broken_content = sdk.content_validation().content_with_errors
-    print(broken_content)
-
+    broken_content_dev = sdk.content_validation().content_with_errors
+    # Assert no new errors introduced in dev branch
+    assert len(broken_content_dev) - len(broken_content_prod) <= 0, """
+        Uh oh. you just introduced a new content error!"""
 
 def parse_dev_branch_name(dev_branch):
     name = dev_branch.split('-')
@@ -23,8 +23,12 @@ def parse_dev_branch_name(dev_branch):
     else:
         print(len(name))
         if len(name) < 3:
-            print("Branch name is not formatted correctly. Exiting.")
-            exit()
+            raise Exception(
+                """
+                Branch name is not formatted correctly. Branch should begin with
+                dev-firstName-lastName or firstName-lastName
+                """
+            )
         else:
             first_name = name[0]
             last_name = name[1]
@@ -33,12 +37,11 @@ def parse_dev_branch_name(dev_branch):
 def get_user_id(first_name, last_name):
     users = sdk.search_users(first_name = first_name, last_name = last_name)
     if len(users) == 0:
-        print('Could not find user with matching first and last name')
-        exit()
+        raise Exception('Could not find user with matching first and last name')
     elif len(users) > 1:
         print("""
-            Multiple users returned with supplied first and last name. \n
-            Arbitrarily selecting first user returned. \n
+            Multiple users returned with supplied first and last name. \m
+            Arbitrarily selecting first user returned. \m
             Please clean up users to avoid this in the future.
             """)
     user = users[0]

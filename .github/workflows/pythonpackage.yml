@@ -3,7 +3,7 @@ name: looker tests
 on:
   pull_request:
     branches:
-      - master
+      - push
 
 jobs:
   looker_tests:

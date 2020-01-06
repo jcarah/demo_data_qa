@@ -1,9 +1,9 @@
 name: looker tests
 
 on:
-  pull_request:
+  push:
     branches:
-      - push
+      - master
 
 jobs:
   looker_tests:

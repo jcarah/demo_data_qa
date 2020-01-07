@@ -1,4 +1,5 @@
 view: products {
+
   sql_table_name: demo_db.products ;;
 
   dimension: id {

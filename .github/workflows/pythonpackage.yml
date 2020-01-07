@@ -1,5 +1,4 @@
 name: looker tests
-
 on:
   pull_request:
     branches:
@@ -17,6 +16,17 @@ jobs:
       LOOKERSDK_VERIFY_SSL: ${{ secrets.LOOKERSDK_VERIFY_SSL }}
 
     steps:
+    - uses: actions/checkout@v1
+    - name: Set environment variables
+      # run: echo Setting environment variables.
+      env:
+        LOOKERSDK_API_VERSION: ${{ secrets.LOOKERSDK_API_VERSION }}
+        LOOKERSDK_BASE_URL: ${{ secrets.LOOKERSDK_BASE_URL }}
+        LOOKERSDK_CLIENT_ID: ${{ secrets.LOOKERSDK_CLIENT_ID }}
+        LOOKERSDK_CLIENT_SECRET: ${{ secrets.LOOKERSDK_CLIENT_SECRET }}
+        LOOKERSDK_TIMEOUT: ${{ secrets.LOOKERSDK_TIMEOUT }}
+        LOOKERSDK_VERIFY_SSL: ${{ secrets.LOOKERSDK_VERIFY_SSL }}
+      run: echo $LOOKERSDK_VERIFY_SSL
     - name: Set up Python
       uses: actions/setup-python@v1
       with:

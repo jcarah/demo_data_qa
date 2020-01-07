@@ -40,8 +40,8 @@ def get_user_id(first_name, last_name):
         raise Exception('Could not find user with matching first and last name')
     elif len(users) > 1:
         print("""
-            Multiple users returned with supplied first and last name. \m
-            Arbitrarily selecting first user returned. \m
+            Multiple users returned with supplied first and last name.
+            Arbitrarily selecting first user returned.
             Please clean up users to avoid this in the future.
             """)
     user = users[0]

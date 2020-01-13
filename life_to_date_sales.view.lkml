@@ -1,4 +1,5 @@
 view: life_to_date_sales {
+
  derived_table: {
    sql: select
         sum(sales) as life_to_date_sales

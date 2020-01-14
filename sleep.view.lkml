@@ -8,7 +8,7 @@ view: sleep {
 
 
   dimension: foo {}
-  dimension: sleep {
+  dimension: sleepy {
     sql: sleep(100)  ;;
   }
 }

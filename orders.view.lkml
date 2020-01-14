@@ -44,6 +44,7 @@ sql_table_name: orders ;;
   }
 
   dimension: user_id {
+    label: "{{ 'Shopify' | link_to: 'https://www.shopify.com','A link to Shopify' }} "
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
@@ -56,5 +57,12 @@ sql_table_name: orders ;;
   measure: count {
     type: count
     drill_fields: [id, users.last_name, users.first_name, users.id, order_items.count]
+  }
+
+  measure: statuses {
+#     type: list
+#     list_field: status
+    sql: group_concat(distinct ${status}) ;;
+#     html: {% if {{_user_attributes['state'] == 'New York' }} and status._value == "complete" %}  {{ value }} {% else %} redacted {% endif %};;
   }
 }

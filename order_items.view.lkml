@@ -1,3 +1,8 @@
+#foo
+explore: small {
+  from: order_items
+}
+
 view: order_items {
   sql_table_name: demo_db.order_items ;;
 
@@ -51,8 +56,23 @@ view: order_items {
 
   }
 
+  measure: revenue {
+    type: sum
+    sql:${TABLE}.sale_price  ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
   }
+
+  measure: average_order_value {
+    required_access_grants: [secret]
+    sql: ${revenue}/${count} ;;
+  }
+
+  filter: date_filter {
+    type: date
+  }
+
 }

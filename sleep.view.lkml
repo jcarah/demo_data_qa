@@ -1,7 +1,7 @@
 datagroup: sleep {
   sql_trigger: select  minute(now()) ;;
 }
-explore: sleep {}
+explore: sleep {persist_with:sleep}
 view: sleep {
   derived_table: {
     indexes: ["foo"]

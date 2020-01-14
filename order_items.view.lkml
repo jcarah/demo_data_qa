@@ -1,7 +1,7 @@
 #foo
-explore: small {
-  from: order_items
-}
+# explore: small {
+#   from: order_items
+# }
 
 view: order_items {
   sql_table_name: demo_db.order_items ;;

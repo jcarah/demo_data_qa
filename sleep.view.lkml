@@ -6,6 +6,7 @@ view: sleep {
     sql: select sleep(100) foo ;;
   }
 
+
   dimension: foo {}
   dimension: sleep {
     sql: sleep(100)  ;;

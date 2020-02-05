@@ -20,5 +20,5 @@ jobs:
         echo where are we? 
         pwd
         echo what's in here?
-        ls -a
+        ls
 

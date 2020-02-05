@@ -16,9 +16,4 @@ jobs:
         echo Add other actions to build,
         echo test, and deploy your project.
     - name: let's poke around
-      run: |
-        echo where are we? \
-        pwd \
-        echo what's in here? \
-        cd .. && ls \
-
+      run: pwd; ls -la ; cd ..; ls -la

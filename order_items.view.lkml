@@ -75,4 +75,10 @@ view: order_items {
     type: date
   }
 
+  measure: cumulative_revenue{
+    type: running_total
+    sql: ${revenue} ;;
+    value_format_name: usd
+  }
+
 }

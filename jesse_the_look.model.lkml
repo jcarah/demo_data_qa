@@ -1,24 +1,24 @@
 connection: "thelook"
 
-
+#
 # # include all the views
 # include: "*.view"
-
+#
 # # include all the dashboards
 # # include: "*.dashboard"
-
+#
 # access_grant: secret {
 #   allowed_values: ["New York"]
 #   user_attribute: state
 # }
 # explore: order_items {
-
+#
 # #   fields: ["order_items.count"]
-
+#
 # # foo
-
-
-
+#
+#
+#
 #   from: order_items
 #   sql_always_where:
 #   {% if {{_user_attributes['state'] == 'New York' }} %}
@@ -33,20 +33,20 @@ connection: "thelook"
 #     fields: [inventory_items.cost]
 #     relationship: many_to_one
 #   }
-
+#
 #   join: orders {
 #     type: left_outer
 #     sql_on: ${order_items.order_id} = ${orders.id} ;;
 #     sql_where: {% condition order_items.date_filter %} ${orders.created_date} {% endcondition %}  ;;
 #     relationship: many_to_one
 #   }
-
+#
 #   join: products {
 #     type: left_outer
 #     sql_on: ${inventory_items.product_id} = ${products.id} ;;
 #     relationship: many_to_one
 #   }
-
+#
 #   join: users {
 #     type: left_outer
 #     sql_on: ${orders.user_id} = ${users.id} ;;
@@ -58,11 +58,11 @@ connection: "thelook"
 #     relationship: one_to_one
 #   }
 # }
-
+#
 # explore: users {
 #   hidden: no
 # }
-
+#
 # explore: users_clean {
 #   extends: [users]
 #   view_name: users

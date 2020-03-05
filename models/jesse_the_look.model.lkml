@@ -2,10 +2,10 @@ connection: "thelook"
 
 
 # include all the views
-include: "*.view"
+include: "/views/*.view"
 
 # include all the dashboards
-# include: "*.dashboard"
+# include: "/dashboards/*.dashboard"
 
 access_grant: secret {
   allowed_values: ["New York"]

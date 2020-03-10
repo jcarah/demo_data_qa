@@ -30,6 +30,7 @@ view: order_items {
             else returned_at end ;;
     hidden: yes
   }
+
   dimension: returned {
     type: date_time
     order_by_field: returned_sort

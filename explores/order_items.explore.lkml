@@ -1,4 +1,4 @@
-include: "*.view.lkml"
+include: "/views/*.view.lkml"
 
 explore: order_items_core {
   extension: required

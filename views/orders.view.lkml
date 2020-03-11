@@ -14,6 +14,7 @@ sql_table_name: orders ;;
       date,
       week,
       month,
+      month_num,
       quarter,
       year
     ]

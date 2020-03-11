@@ -1,11 +1,14 @@
 connection: "thelook"
 
 
+
 # include all the views
-include: "*.view"
+include: "/views/*.view"
+aggregate_awareness: yes
+
 
 # include all the dashboards
-# include: "*.dashboard"
+# include: "/dashboards/*.dashboard"
 
 access_grant: secret {
   allowed_values: ["New York"]
@@ -16,7 +19,6 @@ explore: order_items {
 #   fields: ["order_items.count"]
 
 # foo
-
 
 
   from: order_items

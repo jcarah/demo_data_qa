@@ -27,7 +27,7 @@ view: order_item_facts {
     value_format: "$#.00;($#.00)"
   }
 }
-include: "*.view"
+include: "/views/*.view"
 
 explore: order_item_facts {
 

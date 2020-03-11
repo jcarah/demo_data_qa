@@ -59,6 +59,8 @@ view: order_items {
   measure: revenue {
     type: sum
     sql:${TABLE}.sale_price  ;;
+    value_format_name: usd
+
   }
 
   measure: count {
@@ -74,5 +76,16 @@ view: order_items {
   filter: date_filter {
     type: date
   }
+
+  measure: cumulative_revenue{
+    type: running_total
+    sql: ${revenue} ;;
+    value_format_name: usd
+  }
+
+  measure: profit {
+    type: number
+    sql: ${revenue} - ${inventory_items.cost}*10 ;;
+    value_format_name: usd  }
 
 }

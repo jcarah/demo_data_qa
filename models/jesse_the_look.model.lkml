@@ -6,7 +6,9 @@ connection: "thelook"
 include: "/views/*.view"
 aggregate_awareness: yes
 
-
+datagroup: daily_rebuild_datagroup {
+  sql_trigger:  select current_date() ;;
+}
 # include all the dashboards
 # include: "/dashboards/*.dashboard"
 
@@ -15,6 +17,7 @@ access_grant: secret {
   user_attribute: state
 }
 explore: order_items {
+  persist_with: daily_rebuild_datagroup
 
 #   fields: ["order_items.count"]
 

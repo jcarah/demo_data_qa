@@ -16,12 +16,20 @@ access_grant: secret {
   allowed_values: ["New York"]
   user_attribute: state
 }
+test: test_test {
+  explore_source: order_items {
+    column: revenue {}
+    filters: {
+      field: orders.created_year
+      value: "2019"
+    }
+  }
+  assert: revenue_is_what_we_think_it_should_be_in_2019{
+    expression: round(${order_items.revenue},2) = 1431500.71;;
+    }
+}
+
 explore: order_items {
-  persist_with: daily_rebuild_datagroup
-
-#   fields: ["order_items.count"]
-
-# foo
 
 
   from: order_items

@@ -6,7 +6,9 @@ connection: "thelook"
 include: "/views/*.view"
 aggregate_awareness: yes
 
-
+datagroup: daily_rebuild_datagroup {
+  sql_trigger:  select current_date() ;;
+}
 # include all the dashboards
 # include: "/dashboards/*.dashboard"
 

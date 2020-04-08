@@ -81,3 +81,7 @@ explore: users_clean {
   view_name: users
   fields: [users.country, users.age]
 }
+
+explore: pbl_demo {
+  from: users
+}

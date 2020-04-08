@@ -84,4 +84,8 @@ explore: users_clean {
 
 explore: pbl_demo {
   from: users
+  access_filter: {
+    field: state
+    user_attribute: state
+  }
 }

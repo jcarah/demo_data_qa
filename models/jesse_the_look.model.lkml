@@ -9,6 +9,9 @@ aggregate_awareness: yes
 datagroup: daily_rebuild_datagroup {
   sql_trigger:  select current_date() ;;
 }
+datagroup: daily_rebuild_datagroup_2 {
+  sql_trigger:  select current_date() ;;
+}
 # include all the dashboards
 # include: "/dashboards/*.dashboard"
 

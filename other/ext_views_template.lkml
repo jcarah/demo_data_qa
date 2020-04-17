@@ -1,6 +1,6 @@
 # include: "/views/*.view.lkml"
 
-view: +foo {}
+# view: +foo {}÷
 
 #
 # view: users_ {

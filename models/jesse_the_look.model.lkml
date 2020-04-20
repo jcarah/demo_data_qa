@@ -6,7 +6,12 @@ connection: "thelook"
 include: "/views/*.view"
 aggregate_awareness: yes
 
-
+datagroup: daily_rebuild_datagroup {
+  sql_trigger:  select current_date() ;;
+}
+datagroup: daily_rebuild_datagroup_2 {
+  sql_trigger:  select current_date() ;;
+}
 # include all the dashboards
 # include: "/dashboards/*.dashboard"
 
@@ -14,11 +19,20 @@ access_grant: secret {
   allowed_values: ["New York"]
   user_attribute: state
 }
+test: test_test {
+  explore_source: order_items {
+    column: revenue {}
+    filters: {
+      field: orders.created_year
+      value: "2019"
+    }
+  }
+  assert: revenue_is_what_we_think_it_should_be_in_2019{
+    expression: round(${order_items.revenue},2) = 1431500.71;;
+    }
+}
+
 explore: order_items {
-
-#   fields: ["order_items.count"]
-
-# foo
 
 
   from: order_items
@@ -69,4 +83,12 @@ explore: users_clean {
   extends: [users]
   view_name: users
   fields: [users.country, users.age]
+}
+
+explore: pbl_demo {
+  from: users
+  access_filter: {
+    field: state
+    user_attribute: state
+  }
 }

@@ -74,6 +74,10 @@ explore: order_items {
     sql_on: ${users.id} = ${user_facts.user_id} ;;
     relationship: one_to_one
   }
+  join: state_mapping {
+    sql_on: ${users.state} = ${state_mapping.state} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: users {

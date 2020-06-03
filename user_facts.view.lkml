@@ -11,6 +11,7 @@ view: user_facts {
     group by 1,2
     ;;
   }
+  # FOOOO
   dimension: user_id {
     primary_key: yes
   }

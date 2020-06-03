@@ -1,4 +1,5 @@
 view: user_facts {
+  # foo
   view_label: "Users"
   derived_table: {
     sql:

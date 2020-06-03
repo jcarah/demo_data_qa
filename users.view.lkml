@@ -2,7 +2,7 @@
 view: users {
   # foo
   sql_table_name: demo_db.users ;;
-
+# foo
   dimension: id {
     primary_key: yes
     type: number

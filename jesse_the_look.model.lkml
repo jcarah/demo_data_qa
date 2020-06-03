@@ -7,10 +7,10 @@ include: "*.view"
 # include all the dashboards
 # include: "*.dashboard"
 
-access_grant: secret {
-  allowed_values: ["New York"]
-  user_attribute: state
-}
+# access_grant: secret {
+#   allowed_values: ["New York"]
+#   user_attribute: state
+# }
 explore: order_items {
 
 #   fields: ["order_items.count"]

@@ -1,5 +1,6 @@
 view: user_facts {
   # this is a change
+  # a change again
 
   view_label: "Users"
   derived_table: {

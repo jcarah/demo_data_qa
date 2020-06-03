@@ -1,7 +1,5 @@
 #foo
-explore: small {
-  from: order_items
-}
+#
 
 view: order_items {
   sql_table_name: demo_db.order_items ;;
@@ -67,7 +65,7 @@ view: order_items {
   }
 
   measure: average_order_value {
-    required_access_grants: [secret]
+#     required_access_grants: [secret]
     sql: ${revenue}/${count} ;;
   }
 

@@ -1,5 +1,6 @@
 # explore: users {}
 view: users {
+  # foo
   sql_table_name: demo_db.users ;;
 
   dimension: id {

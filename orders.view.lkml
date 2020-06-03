@@ -5,6 +5,7 @@ sql_table_name: orders ;;
     type: number
     sql: ${TABLE}.id ;;
   }
+#   foo
 
   dimension_group: created {
     type: time

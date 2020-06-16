@@ -1,4 +1,5 @@
 view: products {
+
   sql_table_name: demo_db.products ;;
 
   dimension: id {
@@ -10,6 +11,7 @@ view: products {
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;
+
   }
 
   dimension: category {

@@ -1,9 +1,13 @@
-view: orders {
-sql_table_name: orders ;;
+
+view: events {
+  sql_table_name: demo_db.events ;;
+
   dimension: id {
     primary_key: yes
+    description: "This is a id field"
     type: number
     sql: ${TABLE}.id ;;
+
   }
 
   dimension_group: created {
@@ -20,20 +24,24 @@ sql_table_name: orders ;;
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: status {
-    type: string
-    sql: ${TABLE}.status ;;
+  dimension: type_id {
+    type: number
+    sql: ${TABLE}.type_id ;;
   }
 
   dimension: user_id {
-    label: "{{ 'Shopify' | link_to: 'https://www.shopify.com','A link to Shopify' }} "
     type: number
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: value {
+    type: string
+    sql: ${TABLE}.value ;;
+  }
+
   measure: count {
     type: count
-    drill_fields: [id, users.last_name, users.first_name, users.id, order_items.count]
+    drill_fields: [id, users.last_name, users.first_name, users.id]
   }
 }

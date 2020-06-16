@@ -2,8 +2,8 @@ view: scratch {
  parameter: table_input {
    type: string
  }
-# foo
-#bar
+
+
  derived_table: {
    sql: {% assign tables = table_input._parameter_value | replace: "'", "" | split: ","  %}
           {% for table in tables %}

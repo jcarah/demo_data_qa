@@ -1,9 +1,13 @@
 view: order_item_facts {
   derived_table: {
+#     sql_trigger_value:  select current_date() ;;
+    indexes: ["date"]
+    datagroup_trigger: daily_rebuild_datagroup
     sql: select date(o.created_at) as date,
               product_id as product_id,
               sku as store_id,
               sum(oi.sale_price) sales
+
               from order_items oi
               left join orders o on o.id = oi.order_id
               left join inventory_items ii on ii.id = oi.inventory_item_id
@@ -12,7 +16,9 @@ view: order_item_facts {
               order by date desc
 --              limit 500
               ;;
+
   }
+
   dimension: date {
    type: date
   }
@@ -27,7 +33,7 @@ view: order_item_facts {
     value_format: "$#.00;($#.00)"
   }
 }
-include: "*.view"
+include: "/views/*.view"
 
 explore: order_item_facts {
 

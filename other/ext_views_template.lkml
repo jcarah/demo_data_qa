@@ -1,4 +1,7 @@
-# include: "*.view.lkml"
+# include: "/views/*.view.lkml"
+
+# view: +foo {}÷
+
 #
 # view: users_ {
 #   extends: [users_core]

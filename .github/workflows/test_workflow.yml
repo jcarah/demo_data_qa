@@ -29,7 +29,8 @@ jobs:
         # pip install -r .github/actions/requirements.txt
         echo "Installing pipenv"
         curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-        pipenv install .github/actions
+        cd .github/actions
+        pipenv
     # - name: Run test
     #   run: |
     #     python .github/actions/run_tests.py ${{ github.head_ref }}

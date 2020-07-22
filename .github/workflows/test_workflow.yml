@@ -1,6 +1,6 @@
 name: looker tests
 on:
-  pull_request:
+  commit:
     branches:
       - master
 

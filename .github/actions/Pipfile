@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 looker-sdk = "==0.1.3b15"
+prettyprinter = "*"
 
 [dev-packages]
 

@@ -1,6 +1,6 @@
 name: looker tests
 on:
-  commit:
+  push:
     branches:
       - master
 

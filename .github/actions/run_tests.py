@@ -1,7 +1,7 @@
-from looker_sdk import client, models
+import looker_sdk
 import sys
 
-sdk = client.setup()
+sdk = looker_sdk.init31()
 
 def main():
     broken_content_prod = sdk.content_validation().content_with_errors
@@ -15,41 +15,42 @@ def main():
     assert len(broken_content_dev) - len(broken_content_prod) <= 0, """
         Uh oh. you just introduced a new content error!"""
 
-def parse_dev_branch_name(dev_branch):
-    name = dev_branch.split('-')
-    if dev_branch.startswith('dev'):
-        first_name = name[1]
-        last_name = name[2]
-    else:
-        print(len(name))
-        if len(name) < 3:
-            raise Exception(
-                """
-                Branch name is not formatted correctly. Branch should begin with
-                dev-firstName-lastName or firstName-lastName
-                """
-            )
-        else:
-            first_name = name[0]
-            last_name = name[1]
-    return (first_name, last_name)
+# def parse_dev_branch_name(dev_branch):
+#     name = dev_branch.split('-')
+#     if dev_branch.startswith('dev'):
+#         first_name = name[1]
+#         last_name = name[2]
+#     else:
+#         print(len(name))
+#         if len(name) < 3:
+#             raise Exception(
+#                 """
+#                 Branch name is not formatted correctly. Branch should begin with
+#                 dev-firstName-lastName or firstName-lastName
+#                 """
+#             )
+#         else:
+#             first_name = name[0]
+#             last_name = name[1]
+#     return (first_name, last_name)
 
-def get_user_id(first_name, last_name):
-    users = sdk.search_users(first_name = first_name, last_name = last_name)
-    if len(users) == 0:
-        raise Exception('Could not find user with matching first and last name')
-    elif len(users) > 1:
-        print("""
-            Multiple users returned with supplied first and last name.
-            Arbitrarily selecting first user returned.
-            Please clean up users to avoid this in the future.
-            """)
-    user = users[0]
-    user_id = user.id
-    return user_id
+# def get_user_id(first_name, last_name):
+#     users = sdk.search_users(first_name = first_name, last_name = last_name)
+#     if len(users) == 0:
+#         raise Exception('Could not find user with matching first and last name')
+#     elif len(users) > 1:
+#         print("""
+#             Multiple users returned with supplied first and last name.
+#             Arbitrarily selecting first user returned.
+#             Please clean up users to avoid this in the future.
+#             """)
+#     user = users[0]
+#     user_id = user.id
+#     return user_id
 
-def checkout_dev_branch():
+def checkout_dev_branch(branch_name):
     """Enter dev workspace"""
     sdk.update_session(models.WriteApiSession(workspace_id='dev'))
+    sdk
 
 main()

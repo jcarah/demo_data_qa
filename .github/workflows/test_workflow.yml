@@ -7,14 +7,6 @@ on:
 jobs:
   looker_tests:
     runs-on: ubuntu-latest
-    env:
-      LOOKERSDK_API_VERSION: ${{ secrets.LOOKERSDK_API_VERSION }}
-      LOOKERSDK_BASE_URL: ${{ secrets.LOOKERSDK_BASE_URL }}
-      LOOKERSDK_CLIENT_ID: ${{ secrets.LOOKERSDK_CLIENT_ID }}
-      LOOKERSDK_CLIENT_SECRET: ${{ secrets.LOOKERSDK_CLIENT_SECRET }}
-      LOOKERSDK_TIMEOUT: ${{ secrets.LOOKERSDK_TIMEOUT }}
-      LOOKERSDK_VERIFY_SSL: ${{ secrets.LOOKERSDK_VERIFY_SSL }}
-
     steps:
     - uses: actions/checkout@v1
     - name: Set environment variables
@@ -30,13 +22,15 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7.6
+        python-version: 3.8.3
     - name: Install dependencies
       run: |
         pwd
         ls -la
-        python -m pip install --upgrade pip
-        pip install -r .github/actions/requirements.txt
-    - name: Run test
-      run: |
-        python .github/actions/run_tests.py ${{ github.head_ref }}
+        # python -m pip install --upgrade pip
+        # pip install -r .github/actions/requirements.txt
+        echo "installing pipenv"
+        curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+    # - name: Run test
+    #   run: |
+    #     python .github/actions/run_tests.py ${{ github.head_ref }}

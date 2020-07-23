@@ -22,7 +22,7 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.8.3
-    - name: Install dependencies
+    - name: Install dependencies & run tests
       run: |
         echo "Installing pipenv"
         curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
@@ -31,4 +31,4 @@ jobs:
         pipenv install
         echo "Running tests."
         pipenv graph
-        pipenv run python .github/actions/run_tests.py ${{ github.head_ref }}
+        pipenv run python run_tests.py ${{ github.head_ref }}

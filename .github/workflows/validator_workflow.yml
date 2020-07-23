@@ -31,4 +31,5 @@ jobs:
         pipenv install
     - name: Run test
       run: |
+        pwd
         pipenv run python ~/.github/actions/run_tests.py ${{ github.head_ref }}

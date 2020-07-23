@@ -25,3 +25,4 @@ def checkout_dev_branch(branch_name, project_name):
     sdk.update_git_branch(project_id=project_name, body=branch)
 
 main()
+

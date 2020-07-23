@@ -29,7 +29,6 @@ jobs:
         cd .github/actions
         echo "Installing python modules"
         pipenv install
-        pipenv shell
     - name: Run test
       run: |
-        python .github/actions/run_tests.py ${{ github.head_ref }}
+        pipenv run python run_tests.py ${{ github.head_ref }}

@@ -31,5 +31,6 @@ jobs:
         pipenv install
     - name: Run test
       run: |
-        pwd
+        echo "Running tests."
+        pipenv graph
         pipenv run python .github/actions/run_tests.py ${{ github.head_ref }}

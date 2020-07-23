@@ -38,5 +38,4 @@ jobs:
         echo "Installing python modules"
         pipenv install
         echo "Running tests."
-        pipenv graph
-        pipenv run python run_tests.py ${{ github.head_ref }}
+        python run_tests.py ${{ github.head_ref }}

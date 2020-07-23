@@ -24,6 +24,7 @@ jobs:
         python-version: 3.8.3
     - name: Install dependencies & run tests
       run: |
+        printenv
         echo "Installing pipenv"
         curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
         cd .github/actions

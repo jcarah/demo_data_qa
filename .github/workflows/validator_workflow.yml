@@ -22,7 +22,7 @@ jobs:
         LOOKERSDK_TIMEOUT: ${{ secrets.LOOKERSDK_TIMEOUT }}
         LOOKERSDK_VERIFY_SSL: ${{ secrets.LOOKERSDK_VERIFY_SSL }}
       run: |
-        echo ${{ github.head_ref }}
+        echo $GITHUB_REF
         # echo Installing pipenv
         # curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
         # cd .github/actions

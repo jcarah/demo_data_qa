@@ -1,3 +1,4 @@
+
 datagroup: dg1 {
   sql_trigger: select floor(minute(now())/2) ;;
 }
@@ -10,8 +11,8 @@ explore: d1 {
   }
 view: d1 {
   derived_table: {
-    indexes: ["foo"]
-    datagroup_trigger: dg1
+#     indexes: ["foo"]
+#     datagroup_trigger: dg1
     sql: select sleep(60) foo ;;
     }
     dimension: d1_sleep {

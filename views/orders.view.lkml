@@ -18,7 +18,7 @@ sql_table_name: orders ;;
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;;
+    sql: adddate(${TABLE}.created_at, interval datediff(current_date(), '2019-12-21') day) ;;
   }
   dimension: created_at_plus_8 {
     type: date_time

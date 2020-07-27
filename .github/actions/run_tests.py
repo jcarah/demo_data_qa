@@ -1,55 +1,28 @@
-from looker_sdk import client, models
+import looker_sdk
+from looker_sdk import models31 as models
 import sys
+import prettyprinter
+prettyprinter.install_extras(include=['attrs'])
 
-sdk = client.setup()
+sdk = looker_sdk.init31()
+project = 'jesse_the_look'
 
 def main():
-    broken_content_prod = sdk.content_validation().content_with_errors
-    name = parse_dev_branch_name(sys.argv[1])
-    user_id = get_user_id(name[0],name[1])
-    print(user_id)
-    sdk.login_user(user_id)
-    checkout_dev_branch()
-    broken_content_dev = sdk.content_validation().content_with_errors
+    checkout_dev_branch(sys.argv[1], project)
+    lookml_errors = sdk.validate_project(project_id=project).errors
+    prettyprinter.pprint((lookml_errors))
     # Assert no new errors introduced in dev branch
-    assert len(broken_content_dev) - len(broken_content_prod) <= 0, """
-        Uh oh. you just introduced a new content error!"""
+    for error in lookml_errors:
+        assert error.kind != 'error', """
+            Uh oh, there are LookML Validation errors in your branch :-(
+            Please go and fix that before merging your commit
+            """
 
-def parse_dev_branch_name(dev_branch):
-    name = dev_branch.split('-')
-    if dev_branch.startswith('dev'):
-        first_name = name[1]
-        last_name = name[2]
-    else:
-        print(len(name))
-        if len(name) < 3:
-            raise Exception(
-                """
-                Branch name is not formatted correctly. Branch should begin with
-                dev-firstName-lastName or firstName-lastName
-                """
-            )
-        else:
-            first_name = name[0]
-            last_name = name[1]
-    return (first_name, last_name)
-
-def get_user_id(first_name, last_name):
-    users = sdk.search_users(first_name = first_name, last_name = last_name)
-    if len(users) == 0:
-        raise Exception('Could not find user with matching first and last name')
-    elif len(users) > 1:
-        print("""
-            Multiple users returned with supplied first and last name.
-            Arbitrarily selecting first user returned.
-            Please clean up users to avoid this in the future.
-            """)
-    user = users[0]
-    user_id = user.id
-    return user_id
-
-def checkout_dev_branch():
+def checkout_dev_branch(branch_name, project_name):
     """Enter dev workspace"""
     sdk.update_session(models.WriteApiSession(workspace_id='dev'))
+    branch = models.WriteGitBranch(name=branch_name)
+    sdk.update_git_branch(project_id=project_name, body=branch)
 
 main()
+

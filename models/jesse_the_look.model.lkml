@@ -9,6 +9,9 @@ aggregate_awareness: yes
 datagroup: daily_rebuild_datagroup {
   sql_trigger:  select current_date() ;;
 }
+datagroup: daily_rebuild_datagroup_2 {
+  sql_trigger:  select current_date() ;;
+}
 # include all the dashboards
 # include: "/dashboards/*.dashboard"
 
@@ -16,22 +19,32 @@ access_grant: secret {
   allowed_values: ["New York"]
   user_attribute: state
 }
+test: test_test {
+  explore_source: order_items {
+    column: revenue {}
+    filters: {
+      field: orders.created_year
+      value: "2019"
+    }
+  }
+  assert: revenue_is_what_we_think_it_should_be_in_2019{
+    expression: round(${order_items.revenue},2) = 1431500.71;;
+    }
+}
+
 explore: order_items {
-  persist_with: daily_rebuild_datagroup
+  aggregate_table: rollup__orders_created_date {
+    query: {
+      dimensions: [orders.created_date]
+      measures: [count, cumulative_revenue, profit, revenue]
+      timezone: "America/New_York"
+    }
 
-#   fields: ["order_items.count"]
-
-# foo
-
-
+    materialization: {
+      persist_for: "12 hours"
+    }
+  }
   from: order_items
-  sql_always_where:
-  {% if {{_user_attributes['state'] == 'New York' }} %}
-      1=1
-  {% else %}
-    ${orders.status} != 'complete'
-  {% endif %}
-      ;;
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
@@ -42,7 +55,6 @@ explore: order_items {
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
-    sql_where: {% condition order_items.date_filter %} ${orders.created_date} {% endcondition %}  ;;
     relationship: many_to_one
   }
 
@@ -55,12 +67,16 @@ explore: order_items {
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
-    sql_where: {% condition order_items.date_filter %} ${users.created_date} {% endcondition %} ;;
+
     relationship: many_to_one
   }
   join: user_facts {
     sql_on: ${users.id} = ${user_facts.user_id} ;;
     relationship: one_to_one
+  }
+  join: state_mapping {
+    sql_on: ${users.state} = ${state_mapping.state} ;;
+    relationship: many_to_one
   }
 }
 
@@ -72,4 +88,12 @@ explore: users_clean {
   extends: [users]
   view_name: users
   fields: [users.country, users.age]
+}
+
+explore: pbl_demo {
+  from: users
+  access_filter: {
+    field: state
+    user_attribute: state
+  }
 }
